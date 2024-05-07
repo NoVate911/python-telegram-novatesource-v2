@@ -1,14 +1,14 @@
 from aiogram import Router, Dispatcher
 
-from src.handlers.user.start import router as start_router
-from src.handlers.user.help.init import init as help_init
+from src.handlers.user.help.main import router as main_router
+from src.handlers.user.help.bot import router as bot_router
 
 
 def init(dp: Dispatcher) -> None:
     routers: Router = (
-        start_router,
+        main_router,
+        bot_router,
     )
 
-    help_init(dp=dp)
     for router in routers:
         dp.include_router(router)

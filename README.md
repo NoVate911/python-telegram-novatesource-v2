@@ -44,11 +44,9 @@
   - General
     - [x] Registration (/start)
       - [x] Checking for subscriptions for certain channels
-    - [ ] Assistance section
-      - [ ] Information about the bot
-      - [ ] Bot use rules
-    - [ ] Donations
-      - [ ] Statistics
+    - [x] Assistance section
+      - [x] Information about the bot
+    - [ ] Donate
   - Administrator
     - [ ] Channels
       - [ ] Add
@@ -136,11 +134,9 @@
   - Общий
     - [x] Регистрация (/start)
       - [x] Проверка на оформление подписки на определённые каналы
-    - [ ] Раздел помощи
-      - [ ] Информация о боте
-      - [ ] Правила пользования ботом
-    - [ ] Пожертвования
-      - [ ] Статистика
+    - [x] Раздел помощи
+      - [x] Информация о боте
+    - [ ] Пожертвовать
   - Администратор
     - [ ] Каналы
       - [ ] Добавить
