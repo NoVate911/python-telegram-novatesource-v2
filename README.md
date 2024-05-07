@@ -42,8 +42,8 @@
   Edits and updates in systems are possible!
 
   - General
-    - [ ] Registration (/start)
-      - [ ] Checking for subscriptions for certain channels
+    - [x] Registration (/start)
+      - [x] Checking for subscriptions for certain channels
     - [ ] Assistance section
       - [ ] Information about the bot
       - [ ] Bot use rules
@@ -134,8 +134,8 @@
   Возможны правки и обновления в системах!
 
   - Общий
-    - [ ] Регистрация (/start)
-      - [ ] Проверка на оформление подписки на определённые каналы
+    - [x] Регистрация (/start)
+      - [x] Проверка на оформление подписки на определённые каналы
     - [ ] Раздел помощи
       - [ ] Информация о боте
       - [ ] Правила пользования ботом
