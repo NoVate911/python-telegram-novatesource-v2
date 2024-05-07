@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="https://i.imgur.com/mcZpUH3.png" title="NoVate Source Bot" alt="NoVate Source Bot">
+  <img src="https://i.imgur.com/iasKyQU.png" title="NoVate Source Bot" alt="NoVate Source Bot">
 </h1>
 
 <p align="center">
