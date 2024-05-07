@@ -1,6 +1,7 @@
 from aiogram import Router, Dispatcher
 
 from src.handlers.user.init import init as user_init
+from src.handlers.administrator.init import init as administrator_init
 from src.handlers.other import router as other_router
 
 
@@ -10,5 +11,6 @@ def init(dp: Dispatcher) -> None:
     )
 
     user_init(dp=dp)
+    administrator_init(dp=dp)
     for router in routers:
         dp.include_router(router)

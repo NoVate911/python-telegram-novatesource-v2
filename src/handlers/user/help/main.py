@@ -4,7 +4,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.filters import StateFilter
 
 from src.misc.keyboards.inline import main as main_ikb, _help as help_ikb
-from src.misc.states import HelpStates
+from src.misc.states import User_HelpStates
 from src.misc.translations import translations, user_language as get_user_language
 
 
@@ -14,10 +14,10 @@ router: Router = Router()
 @router.callback_query(StateFilter(None), F.data.startswith('user_help_enter'))
 async def callback_user_help_enter(callback: CallbackQuery, state: FSMContext) -> None:
     user_language: str = get_user_language(telegram_id=callback.from_user.id, language_code=callback.from_user.language_code)
-    await state.set_state(state=HelpStates.MAIN.state)
+    await state.set_state(state=User_HelpStates.MAIN.state)
     await callback.message.edit_text(text=translations[user_language]['messages']['user']['help']['enter'], reply_markup=help_ikb(msg=callback))
 
-@router.callback_query(StateFilter(HelpStates.MAIN.state), F.data.startswith('user_help_exit'))
+@router.callback_query(StateFilter(User_HelpStates.MAIN.state), F.data.startswith('user_help_exit'))
 async def callback_user_help_exit(callback: CallbackQuery, state: FSMContext) -> None:
     user_language: str = get_user_language(telegram_id=callback.from_user.id, language_code=callback.from_user.language_code)
     await state.set_state(state=None)

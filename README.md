@@ -48,10 +48,11 @@
       - [x] Information about the bot
     - [ ] Donate
   - Administrator
-    - [ ] Channels
-      - [ ] Add
-      - [ ] Delete
-      - [ ] Change the type
+    - [x] Channels
+      - [x] Add
+      - [x] Delete
+      - [x] Change the type
+      - [x] List
 
   ---
 
@@ -138,10 +139,11 @@
       - [x] Информация о боте
     - [ ] Пожертвовать
   - Администратор
-    - [ ] Каналы
-      - [ ] Добавить
-      - [ ] Удалить
-      - [ ] Сменить тип
+    - [x] Каналы
+      - [x] Добавить
+      - [x] Удалить
+      - [x] Сменить тип
+      - [x] Список
 
   ---
 

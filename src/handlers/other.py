@@ -6,8 +6,9 @@ from aiogram.filters import StateFilter
 from aiogram.fsm.context import FSMContext
 
 from src.database.requests.select.channels import channels_all as select_channels_all
+from src.misc.keyboards.inline import main as main_ikb, _help as help_ikb
 from src.misc.filters import NotRegistered, NotSubscribedChannels
-from src.misc.states import HelpStates
+from src.misc.states import User_HelpStates
 from src.misc.translations import translations, user_language as get_user_language
 
 
@@ -38,14 +39,14 @@ async def not_registered(msg: Message, state: FSMContext) -> None:
     await state.clear()
     await msg.reply(text=translations[user_language]['messages']['not_registered'], reply_markup=ReplyKeyboardRemove())
 
-@router.message(StateFilter(None, HelpStates.MAIN.state))
+@router.message(StateFilter(None, User_HelpStates.MAIN.state))
 async def cmd_unknown(msg: Message, state: FSMContext) -> None:
     user_language: str = get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
     current_state: str = await state.get_state()
-    # keyboard: ReplyKeyboardMarkup = main_kb(msg=msg)
-    # if current_state:
-    #     match(str(current_state.split(":")[0])):
-    #         case 'HelpStates':
-    #             keyboard = help_kb(msg=msg)
+    keyboard: ReplyKeyboardMarkup = main_ikb(msg=msg)
+    if current_state:
+        match(str(current_state.split(":")[0])):
+            case 'User_HelpStates':
+                keyboard = help_ikb(msg=msg)
 
-    await msg.reply(text=translations[user_language]['messages']['unknown'])
+    await msg.reply(text=translations[user_language]['messages']['unknown'], reply_markup=keyboard)
