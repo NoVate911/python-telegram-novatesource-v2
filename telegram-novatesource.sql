@@ -21,7 +21,7 @@ USE `telegram-novatesource`;
 
 -- Дамп структуры для таблица telegram-novatesource.channels
 CREATE TABLE IF NOT EXISTS `channels` (
-  `username` varchar(50) DEFAULT 'novatesource',
+  `username` varchar(32) DEFAULT 'novatesource',
   `status` int(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
