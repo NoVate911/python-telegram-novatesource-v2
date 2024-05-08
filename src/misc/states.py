@@ -7,6 +7,10 @@ from aiogram.fsm.state import State, StatesGroup
 class User_HelpStates(StatesGroup):
     MAIN: Final = State()
 
+class User_DonateStates(StatesGroup):
+    AMOUNT_INSERT: Final = State()
+    CONFIRMATION: Final = State()
+
 # ADMINISTRATOR
 class Administrator_PanelStates(StatesGroup):
     MAIN: Final = State()

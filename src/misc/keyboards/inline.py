@@ -1,4 +1,4 @@
-from aiogram.types import Message, InlineKeyboardButton
+from aiogram.types import Message, InlineKeyboardButton, WebAppInfo
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 from src.database.requests.select.permissions import permissions_permission_by_tid as select_permissions_permission_by_tid
@@ -11,7 +11,7 @@ def main(msg: Message) -> InlineKeyboardBuilder:
     ikb: InlineKeyboardBuilder = InlineKeyboardBuilder()
     ikb.add(
         InlineKeyboardButton(text=translations[user_langauge]['keyboards']['inline']['user']['help']['enter'], callback_data='user_help_enter'),
-        InlineKeyboardButton(text=translations[user_langauge]['keyboards']['inline']['user']['donate'], callback_data='user_donate'),
+        InlineKeyboardButton(text=translations[user_langauge]['keyboards']['inline']['user']['donate']['enter'], callback_data='user_donate'),
     )
     if bool(user_permission['administrator']):
         ikb.add(InlineKeyboardButton(text=translations[user_langauge]['keyboards']['inline']['administrator']['enter'], callback_data='administrator_enter'))
@@ -19,6 +19,7 @@ def main(msg: Message) -> InlineKeyboardBuilder:
     ikb.adjust(1)
     return ikb.as_markup()
 
+# USER
 def _help(msg: Message) -> InlineKeyboardBuilder:
     user_langauge: str = get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
     ikb: InlineKeyboardBuilder = InlineKeyboardBuilder()
@@ -29,6 +30,17 @@ def _help(msg: Message) -> InlineKeyboardBuilder:
     ikb.adjust(1)
     return ikb.as_markup()
 
+def donate_confirmation(msg: Message, redirect_link: str) -> InlineKeyboardBuilder:
+    user_langauge: str = get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
+    ikb: InlineKeyboardBuilder = InlineKeyboardBuilder()
+    ikb.add(
+        InlineKeyboardButton(text=translations[user_langauge]['keyboards']['inline']['user']['donate']['redirect'], web_app=WebAppInfo(url=redirect_link)),
+        InlineKeyboardButton(text=translations[user_langauge]['keyboards']['inline']['user']['donate']['exit'], callback_data='user_donate_confirmation_exit'),
+    )
+    ikb.adjust(2)
+    return ikb.as_markup()
+
+# ADMINISTRATOR
 def administrator(msg: Message) -> InlineKeyboardBuilder:
     user_langauge: str = get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
     ikb: InlineKeyboardBuilder = InlineKeyboardBuilder()

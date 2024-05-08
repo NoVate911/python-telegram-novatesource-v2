@@ -1,10 +1,9 @@
-import logging
-
 from aiogram import Router, F
 from aiogram.types import Message, CallbackQuery
 from aiogram.filters import StateFilter, Command
 from aiogram.fsm.context import FSMContext
 
+from src.database.requests.insert.logs import logs as insert_logs
 from src.database.requests.select.channels import channels_by_username as select_channels_by_username, channels_status_by_username as select_channels_status_by_username
 from src.database.requests.update.channels import channels_status_by_username as update_channels_status_by_username
 from src.misc.keyboards.inline import administrator_channels as administrator_channels_ikb
@@ -45,6 +44,7 @@ async def callback_administrator_channels_change_status_check(msg: Message, stat
     
     if select_channels_by_username(username=msg.text):
         if update_channels_status_by_username(username=msg.text, status=int(not bool(select_channels_status_by_username(username=msg.text)))):
+            insert_logs(action=f"{msg.from_user.id} сменил статус канала {msg.text} на {'+' if bool(select_channels_status_by_username(username=msg.text)) else '-'}")
             await msg.bot.edit_message_text(text=str.format(translations[user_language]['messages']['administrator']['channels']['change_status']['success'], msg.text, '+' if bool(select_channels_status_by_username(username=msg.text)) else '-'), chat_id=msg.from_user.id, message_id=user_data['administrator_channels_change_status_message_id'], reply_markup=administrator_channels_ikb(msg=msg))
     else:
         await msg.bot.edit_message_text(text=translations[user_language]['messages']['administrator']['channels']['change_status']['not_found'], chat_id=msg.from_user.id, message_id=user_data['administrator_channels_change_status_message_id'], reply_markup=administrator_channels_ikb(msg=msg))

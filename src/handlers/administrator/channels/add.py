@@ -6,6 +6,7 @@ from aiogram.filters import StateFilter, Command
 from aiogram.fsm.context import FSMContext
 
 from src.database.requests.insert.channels import channels as insert_channels
+from src.database.requests.insert.logs import logs as insert_logs
 from src.database.requests.select.channels import channels_by_username as select_channels_by_username
 from src.misc.keyboards.inline import administrator_channels as administrator_channels_ikb
 from src.misc.states import Administrator_ChannelsStates
@@ -50,6 +51,7 @@ async def callback_administrator_channels_add_check(msg: Message, state: FSMCont
             if channel_bot_member.status != 'left':
                 if not select_channels_by_username(username=msg.text):
                     if insert_channels(username=msg.text):
+                        insert_logs(action=f"{msg.from_user.id} добавил канал {msg.text} в базу данных")
                         await msg.bot.edit_message_text(text=str.format(translations[user_language]['messages']['administrator']['channels']['add']['success'], msg.text), chat_id=msg.from_user.id, message_id=user_data['administrator_channels_add_message_id'], reply_markup=administrator_channels_ikb(msg=msg))
                 else:
                     await msg.bot.edit_message_text(text=translations[user_language]['messages']['administrator']['channels']['add']['already'], chat_id=msg.from_user.id, message_id=user_data['administrator_channels_add_message_id'], reply_markup=administrator_channels_ikb(msg=msg))

@@ -6,6 +6,7 @@ from aiogram.filters import StateFilter, Command
 from aiogram.fsm.context import FSMContext
 
 from src.database.requests.delete.channels import channels_by_username as delete_channels_by_username
+from src.database.requests.insert.logs import logs as insert_logs
 from src.database.requests.select.channels import channels_by_username as select_channels_by_username
 from src.misc.keyboards.inline import administrator_channels as administrator_channels_ikb
 from src.misc.states import Administrator_ChannelsStates
@@ -45,6 +46,7 @@ async def callback_administrator_channels_remove_check(msg: Message, state: FSMC
     
     if select_channels_by_username(username=msg.text):
         if delete_channels_by_username(username=msg.text):
+            insert_logs(action=f"{msg.from_user.id} удалил канал {msg.text} из базы данных")
             await msg.bot.edit_message_text(text=str.format(translations[user_language]['messages']['administrator']['channels']['remove']['success'], msg.text), chat_id=msg.from_user.id, message_id=user_data['administrator_channels_remove_message_id'], reply_markup=administrator_channels_ikb(msg=msg))
     else:
         await msg.bot.edit_message_text(text=translations[user_language]['messages']['administrator']['channels']['remove']['not_found'], chat_id=msg.from_user.id, message_id=user_data['administrator_channels_remove_message_id'], reply_markup=administrator_channels_ikb(msg=msg))

@@ -46,7 +46,7 @@
       - [x] Checking for subscriptions for certain channels
     - [x] Assistance section
       - [x] Information about the bot
-    - [ ] Donate
+    - [x] Donate
   - Administrator
     - [x] Channels
       - [x] Add
@@ -137,7 +137,7 @@
       - [x] Проверка на оформление подписки на определённые каналы
     - [x] Раздел помощи
       - [x] Информация о боте
-    - [ ] Пожертвовать
+    - [x] Пожертвовать
   - Администратор
     - [x] Каналы
       - [x] Добавить
