@@ -49,13 +49,13 @@ async def callback_user_donate_amount_check(msg: Message, state: FSMContext) -> 
         msg.text,
         SHOP_SETTINGS['currency'],
         SHOP_SETTINGS['secret'],
-        f'{msg.from_user.id}_{datetime.now(tz=timezone(zone='Europe/Moscow')).strftime(format='')}',
+        f'{msg.from_user.id}_{datetime.now(tz=timezone(zone='Europe/Moscow')).strftime(format='%Y/%m/%d %H-%M')}',
     ])
     donate_params: str = {
         'merchant_id': SHOP_SETTINGS['merchant_id'],
         'amount': msg.text,
         'currency': SHOP_SETTINGS['currency'],
-        'order_id': f'{msg.from_user.id}_{datetime.now(tz=timezone(zone='Europe/Moscow')).strftime(format='')}',
+        'order_id': f'{msg.from_user.id}_{datetime.now(tz=timezone(zone='Europe/Moscow')).strftime(format='%Y/%m/%d %H-%M')}',
         'sign': sha256(donate_sign.encode('utf-8')).hexdigest(),
         'desc': SHOP_SETTINGS['desc'],
         'lang': SHOP_SETTINGS['lang'],
