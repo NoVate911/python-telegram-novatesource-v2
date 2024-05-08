@@ -1,6 +1,6 @@
-TOKEN: str = 'YOUR_TOKEN'
+TOKEN: str = '6570790804:AAHvEnM9P1RsOVyZccLFasXZgQSQXyELp4M'
 
-OWNER_TELEGRAM_ID: int = []
+OWNER_TELEGRAM_ID: int = [1548208748]
 
 DATABASE_SETTINGS: str = {
     'host': "localhost",
@@ -12,9 +12,9 @@ DATABASE_SETTINGS: str = {
 
 # https://aaio.so/
 SHOP_SETTINGS: str = {
-    'merchant_id': "YOUR_SHOP_ID", # ID Вашего магазина
+    'merchant_id': "80114537-5ddf-4e0d-b7c5-dc9cf25da746", # ID Вашего магазина
     'currency': "RUB", # Валюта заказа
-    'secret': "YOUR_SECRET_KEY", # Секретный ключ №1 из настроек магазина
+    'secret': "552390d87a472152fd29cbadbe92ded0", # Секретный ключ №1 из настроек магазина
     'desc': "Пожертвование на развитие", # Описание заказа
     'lang': "ru", # Язык формы
 }

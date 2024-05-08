@@ -4,6 +4,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.filters import StateFilter
 
 from src.misc.keyboards.inline import main as main_ikb, administrator as administrator_ikb
+from src.misc.filters import IsAdministrator
 from src.misc.states import Administrator_PanelStates
 from src.misc.translations import translations, user_language as get_user_language
 
@@ -11,7 +12,7 @@ from src.misc.translations import translations, user_language as get_user_langua
 router: Router = Router()
 
 
-@router.callback_query(StateFilter(None), F.data.startswith('administrator_enter'))
+@router.callback_query(StateFilter(None), IsAdministrator(), F.data.startswith('administrator_enter'))
 async def callback_administrator_panel_enter(callback: CallbackQuery, state: FSMContext) -> None:
     user_language: str = get_user_language(telegram_id=callback.from_user.id, language_code=callback.from_user.language_code)
     await state.set_state(state=Administrator_PanelStates.MAIN.state)

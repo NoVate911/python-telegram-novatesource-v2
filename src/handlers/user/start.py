@@ -1,6 +1,7 @@
 from aiogram import Router
 from aiogram.types import Message, ReplyKeyboardRemove
 from aiogram.filters import StateFilter, CommandStart
+from aiogram.fsm.context import FSMContext
 
 from config import OWNER_TELEGRAM_ID
 from src.database.requests.insert.logs import logs as insert_logs
@@ -11,15 +12,17 @@ from src.database.requests.select.users import users_by_tid as select_users_by_t
 from src.database.requests.update.permissions import permissions_permission_by_tid as update_permissions_permission_by_tid
 from src.misc.keyboards.inline import main as main_ikb
 from src.misc.filters import IsSubscribedChannels
+from src.misc.states import User_HelpStates, User_DonateStates, Administrator_PanelStates, Administrator_ChannelsStates
 from src.misc.translations import translations, user_language as get_user_language
 
 
 router: Router = Router()
 
 
-@router.message(StateFilter(None), IsSubscribedChannels(), CommandStart())
-async def cmd_start(msg: Message) -> None:
+@router.message(StateFilter(None, User_HelpStates.MAIN.state, User_DonateStates.CONFIRMATION.state, Administrator_PanelStates.MAIN.state, Administrator_ChannelsStates.MAIN.state), IsSubscribedChannels(), CommandStart())
+async def cmd_start(msg: Message, state: FSMContext) -> None:
     user_language: str = get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
+    await state.clear()
     if not select_permissions_by_tid(tid=msg.from_user.id):
         insert_permissions_by_tid(tid=msg.from_user.id)
 

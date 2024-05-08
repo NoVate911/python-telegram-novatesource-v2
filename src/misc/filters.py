@@ -4,6 +4,7 @@ from aiogram.types import Message, Chat, ChatMember
 from aiogram.filters import Filter
 
 from src.database.requests.select.channels import channels_all as select_channels_all
+from src.database.requests.select.permissions import permissions_permission_by_tid as select_permissions_permission_by_tid
 from src.database.requests.select.users import users_by_tid as select_users_by_tid
 
 
@@ -56,3 +57,8 @@ class NotSubscribedChannels(Filter):
             return True if user_channels_need_subscribed < channels_need_subscribed else False
         else:
             return False
+        
+class IsAdministrator(Filter):
+    async def __call__(self, msg: Message) -> bool:
+        user_permission: dict = select_permissions_permission_by_tid(tid=msg.from_user.id)
+        return bool(user_permission['administrator'])

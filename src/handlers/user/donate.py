@@ -5,7 +5,7 @@ from pytz import timezone
 
 from aiogram import Router, F
 from aiogram.types import Message, CallbackQuery
-from aiogram.filters import StateFilter
+from aiogram.filters import StateFilter, Command
 from aiogram.fsm.context import FSMContext
 
 from src.misc.keyboards.inline import main as main_ikb, donate_confirmation as donate_confirmation_ikb
@@ -17,6 +17,14 @@ from config import SHOP_SETTINGS
 
 router: Router = Router()
 
+
+@router.message(StateFilter(User_DonateStates.AMOUNT_INSERT.state), Command(commands=['cancel']))
+async def callback_user_donate_cancel(msg: Message, state: FSMContext) -> None:
+    user_language: str = get_user_language(telegram_id=msg.from_user.id, language_code=msg.from_user.language_code)
+    user_data: dict = await state.get_data()
+    await state.clear()
+    await msg.delete()
+    await msg.bot.edit_message_text(text=translations[user_language]['messages']['user']['donate']['cancel'], chat_id=msg.from_user.id, message_id=user_data['user_donate_amount_message_id'], reply_markup=main_ikb(msg=msg))
 
 @router.callback_query(StateFilter(None), F.data.startswith('user_donate'))
 async def callback_user_donate_amount_insert(callback: CallbackQuery, state: FSMContext) -> None:
