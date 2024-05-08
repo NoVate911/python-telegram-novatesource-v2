@@ -49,16 +49,16 @@ async def callback_user_donate_amount_check(msg: Message, state: FSMContext) -> 
         msg.text,
         SHOP_SETTINGS['currency'],
         SHOP_SETTINGS['secret'],
-        f'{msg.from_user.id}_{datetime.now(tz=timezone(zone='Europe/Moscow')).strftime(format='%Y/%m/%d %H-%M')}',
+        f"{msg.from_user.id}_{datetime.now(tz=timezone(zone='Europe/Moscow')).strftime(format='%Y/%m/%d %H-%M')}"
     ])
     donate_params: str = {
         'merchant_id': SHOP_SETTINGS['merchant_id'],
         'amount': msg.text,
         'currency': SHOP_SETTINGS['currency'],
-        'order_id': f'{msg.from_user.id}_{datetime.now(tz=timezone(zone='Europe/Moscow')).strftime(format='%Y/%m/%d %H-%M')}',
+        'order_id': f"{msg.from_user.id}_{datetime.now(tz=timezone(zone='Europe/Moscow')).strftime(format='%Y/%m/%d %H-%M')}",
         'sign': sha256(donate_sign.encode('utf-8')).hexdigest(),
         'desc': SHOP_SETTINGS['desc'],
-        'lang': SHOP_SETTINGS['lang'],
+        'lang': SHOP_SETTINGS['lang']
     }
     await msg.bot.edit_message_text(text=str.format(translations[user_language]['messages']['user']['donate']['success'], msg.text), chat_id=msg.from_user.id, message_id=user_data['user_donate_amount_message_id'], reply_markup=donate_confirmation_ikb(msg=msg, redirect_link=f'https://aaio.so/merchant/pay?{urlencode(donate_params)}'))
 
